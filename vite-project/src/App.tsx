@@ -150,9 +150,11 @@ const [updatedLinks,setupdatedLinks] = useState<Link[]>([])
     setLink(edit.link)
     setlinkName(edit.name)
     setselectedLink(edit.name)
+    console.log(event)
   }
 
   const handleDelete=(event:React.MouseEvent<HTMLButtonElement>,del:{name:string})=>{
+    console.log(event)
     originalLinks.map((link)=>{
       if(link.name===del.name){
         setLinks([...links,link])
