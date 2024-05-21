@@ -1,7 +1,8 @@
 html, body {
   margin: 0;
   padding: 0;
-  overflow:hidden;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 .app__main{
   width:100vw;
@@ -9,6 +10,11 @@ html, body {
   display: flex;
   flex-direction: row;
   font-family: "Poppins",'sans-serif';
+
+  @media screen and (max-width:1200px){
+    flex-direction: column;
+    height:100%;
+  }
   button{
     background-color: black;
     color:white;
@@ -26,18 +32,28 @@ html, body {
 
 .app__links{
   width:50%;
-  border:1px solid black;
+  overflow-y: scroll;
+  @media screen and (max-width:1200px){
+    width:100%;
+    padding:0;
+    overflow-y: hidden;
+    padding-left:2rem;
+    padding-top:2rem;
+  }
   padding-left: 3rem;
   padding-right:3rem;
   padding-top: 2rem;
   padding-bottom: 4rem;
-  overflow-y: scroll;
 
   .input__box{
     border:1px solid black;
     border-radius: 8px;
     padding: 0.7rem;
     padding-top: 0;
+
+    @media screen and (max-width:1200px){
+      margin-right:5.5rem;
+    }
 
     input{
       font-size: 1.1rem;
@@ -59,14 +75,15 @@ html, body {
   .app__all-links{
     display: flex;
     flex-direction: row;
+    @media screen and (max-width:1200px){
+      flex-wrap: wrap;
+      margin-right:5rem;
+    }
     flex-wrap: wrap;
     color:grey;
   }
 }
-.app__card{
-  width:50%;
-  border:1px solid black;
-}
+
 
 .link{
   display: flex;
@@ -97,22 +114,15 @@ html, body {
   
 }
 
-.skills{
-  display:flex;
-  flex-direction: row;
-  padding:0.5rem;
-  p{
-    font-size: 0.8rem;
-    border:1px solid black;
-    padding:0.3rem;
-    border-radius: 10px;
-    margin:0.5rem;
-  }
-}
+
 
 .app__updatedLinks{
   margin-top:3rem;
   margin-bottom:3rem;
+
+  @media screen and (max-width:1200px){
+    margin-right:5rem;
+  }
   
   .singleLink{
     display: flex;
@@ -125,6 +135,10 @@ html, body {
     border-radius: 12px;
     border-color: #4bce97;
     background-color: hwb(154 87% 1%);
+    @media screen and (max-width:1200px){
+      justify-content: flex-start;
+      flex-direction: column;
+    }
     .singleLinkName{
       display:flex;
       flex-direction: column;
@@ -153,14 +167,22 @@ html, body {
   display:flex;
   justify-content: center;
   align-items: center;
-  background-color: black;
-  .app__main-card3{
+  width:50%;
+  flex:1;
+border:1px solid black;
+position:relative;
+  @media screen and (max-width:1200px){
     width:100%;
+    margin-top: 3rem;
+  }
+  .app__main-card3{
+    position: relative;
+    z-index:2;
     border:1px solid white;
-    background-color: hsla(0, 0%, 100%, 0.797);
+    background-color: hsla(0, 0%, 100%, 0.997);
     color:black;
     margin:6rem;
-    border-radius: 20px;
+    border-radius: 50px;
     padding:1rem;
 
     .intro{
@@ -190,4 +212,42 @@ html, body {
   .app__social{
     margin:0.5rem;
   }
+}
+
+.skills{
+  display:flex;
+  flex-direction: row;
+  @media screen and (max-width:1200px){
+    flex-wrap: wrap;
+    
+  }
+  padding:0.5rem;
+  p{
+    font-size: 0.8rem;
+    border:1px solid black;
+    padding:0.3rem;
+    border-radius: 10px;
+    margin:0.5rem;
+  }
+}
+
+.background-card{
+  position:absolute;
+  border-color: 1px solid black;
+  border-radius: 50px;
+  width:100%;
+  height:100%;
+}
+
+.rotated-card1{
+  transform: rotate(-2deg);
+  z-index:0;
+  background-color: hsla(0, 0%, 100%, 0.497);
+}
+
+.rotated-card2{
+  transform: rotate(2deg);
+  z-index:1;
+  background-color: hsla(0, 0%, 100%, 0.397);
+
 }

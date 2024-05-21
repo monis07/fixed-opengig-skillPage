@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useState,useEffect,useRef, ChangeEvent} from 'react'
 import './App.scss'
 import globe from './assets/globe.svg'
 import github from './assets/github.svg'
@@ -6,6 +6,7 @@ import gmail from './assets/Gmail.svg'
 import linkedin from './assets/linkedin.svg'
 import phone from './assets/phone.svg'
 import user from './assets/user.svg'
+import mesh from './assets/mesh.svg'
 
 function App() {
   const [links,setLinks] = useState([
@@ -57,11 +58,42 @@ svg:gmail
 }
 ]
 
-const [updatedLinks,setupdatedLinks] = useState([])
+interface Link{
+  name:string,
+  link:string,
+  svg:string
+}
+
+const [updatedLinks,setupdatedLinks] = useState<Link[]>([])
   const [linkName,setlinkName]=useState('Profile Link')
   const [link,setLink]=useState('Select a profile to continue')
   const [visibile,setVisibile]=useState("none")
   const [selected,setselectedLink]=useState("")
+  const mainCardRef = useRef(null);
+  const backgroundCard1Ref = useRef(null);
+  const backgroundCard2Ref = useRef(null);
+
+  useEffect(() => {
+    if (mainCardRef.current) {
+      const mainCard:HTMLElement = mainCardRef.current;
+      let { width, height } = mainCard.getBoundingClientRect();
+
+      width=width+45;
+      height=height+45;
+
+      if (backgroundCard1Ref.current) {
+        const backgroundCard1:HTMLElement = backgroundCard1Ref.current;
+        backgroundCard1.style.width = `${width}px`;
+        backgroundCard1.style.height = `${height}px`;
+      }
+
+      if (backgroundCard2Ref.current) {
+        const backgroundCard2:HTMLElement = backgroundCard2Ref.current;
+        backgroundCard2.style.width = `${width}px`;
+        backgroundCard2.style.height = `${height}px`;
+      }
+    }
+  }, [updatedLinks]); 
   
   const handleClick=(name:string,link:string)=>{
     setlinkName(name)
@@ -70,8 +102,8 @@ const [updatedLinks,setupdatedLinks] = useState([])
     setselectedLink(name)
   }
 
-  const handleChange=(e:any,checklinkName:string)=>{
-    let value;
+  const handleChange=(e:ChangeEvent<HTMLInputElement>,checklinkName:string)=>{
+    let value:string="";
     originalLinks.map((link)=>{
       if(link.name===checklinkName)
         value=link.link
@@ -95,7 +127,7 @@ const [updatedLinks,setupdatedLinks] = useState([])
       link:link,
       svg:linkName==="GitHub"?github:linkName==="LinkedIn"?linkedin:linkName==="Website"?globe:linkName==="Phone"?phone:linkName==="G-Mail"?gmail:globe
     }
-    updatedLinks && updatedLinks.map((link)=>{
+    updatedLinks && updatedLinks.map((link:{name:string,link:string})=>{
       if(link.name === newLink.name){
         link.name=newLink.name
         link.link=newLink.link
@@ -114,13 +146,13 @@ const [updatedLinks,setupdatedLinks] = useState([])
     }
   }
 
-  const handleEdit=(event,edit)=>{
+  const handleEdit=(event:React.MouseEvent<HTMLButtonElement>,edit:{link:string,name:string})=>{
     setLink(edit.link)
     setlinkName(edit.name)
     setselectedLink(edit.name)
   }
 
-  const handleDelete=(event,del)=>{
+  const handleDelete=(event:React.MouseEvent<HTMLButtonElement>,del:{name:string})=>{
     originalLinks.map((link)=>{
       if(link.name===del.name){
         setLinks([...links,link])
@@ -149,8 +181,8 @@ const [updatedLinks,setupdatedLinks] = useState([])
             <p>{link.link}</p>
           </div>
           <div className='singleLinkSymbol'>
-            <button onClick={(event)=>handleEdit(event,link)}>Edit</button>
-            <button onClick={(event)=>handleDelete(event,link)}>Delete</button>
+            <button onClick={(event:React.MouseEvent<HTMLButtonElement>)=>handleEdit(event,link)}>Edit</button>
+            <button onClick={(event:React.MouseEvent<HTMLButtonElement>)=>handleDelete(event,link)}>Delete</button>
           </div>
         </div>
         ))}
@@ -173,10 +205,16 @@ const [updatedLinks,setupdatedLinks] = useState([])
       >Done</button>
     </div>
 
-    <div className='app__card'>
-      <div className='app__main-card1'></div>
-      <div className='app__main-card2'></div>
-      <div className='app__main-card3'>
+    <div className='app__card' style={{
+      backgroundImage:`url(${mesh})`,
+      backgroundSize:"cover",
+      backgroundPosition:"50%",
+      backgroundRepeat:"no-repeat",
+      backgroundColor:"black"
+    }}>
+    <div className='background-card rotated-card1' ref={backgroundCard1Ref}></div>
+    <div className='background-card rotated-card2' ref={backgroundCard2Ref}></div>
+      <div className='app__main-card3' ref={mainCardRef}>
         <div className='intro'>
         <img src={user} alt="" width={80} height={80}/>
         <div className='name_position'>
