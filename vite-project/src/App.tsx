@@ -1,43 +1,59 @@
 import {useState} from 'react'
 import './App.scss'
+import globe from './assets/globe.svg'
+import github from './assets/github.svg'
+import gmail from './assets/Gmail.svg'
+import linkedin from './assets/linkedin.svg'
+import phone from './assets/phone.svg'
+import user from './assets/user.svg'
 
 function App() {
   const [links,setLinks] = useState([
     {
     name:"LinkedIn",
-    link:"https://www.linkedin.com/in/"
+    link:"https://www.linkedin.com/in/",
+    svg:linkedin
   },{
     name:"Website",
-    link:"https://"
+    link:"https://",
+    svg:globe
   },{
     name:"GitHub",
-    link:"https://www.github.com/"
+    link:"https://www.github.com/",
+    svg:github
   },
   {
     name:"Phone",
-    link:""
+    link:"tel:",
+    svg:phone
 },{
   name:"G-Mail",
-  link:""
+  link:"mailto:",
+  svg:gmail
 }
 ])
 const originalLinks = [
   {
   name:"LinkedIn",
-  link:"https://www.linkedin.com/in/"
+  link:"https://www.linkedin.com/in/",
+  svg:linkedin
 },{
   name:"Website",
-  link:"https://"
+  link:"https://",
+  svg:globe
 },{
   name:"GitHub",
-  link:"https://www.github.com/"
+  link:"https://www.github.com/",
+  svg:github
 },
 {
   name:"Phone",
-  link:""
+  link:"tel:",
+  svg:phone
 },{
 name:"G-Mail",
-link:""
+link:"mailto:",
+svg:gmail
 }
 ]
 
@@ -45,11 +61,13 @@ const [updatedLinks,setupdatedLinks] = useState([])
   const [linkName,setlinkName]=useState('Profile Link')
   const [link,setLink]=useState('Select a profile to continue')
   const [visibile,setVisibile]=useState("none")
+  const [selected,setselectedLink]=useState("")
   
   const handleClick=(name:string,link:string)=>{
     setlinkName(name)
     setLink(link)
     setVisibile("none")
+    setselectedLink(name)
   }
 
   const handleChange=(e:any,checklinkName:string)=>{
@@ -69,15 +87,16 @@ const [updatedLinks,setupdatedLinks] = useState([])
     }
   }
 
-  let count=0;
 
   const handleDone=()=>{
+    let count=0;
     const newLink={
       name:linkName,
-      link:link
+      link:link,
+      svg:linkName==="GitHub"?github:linkName==="LinkedIn"?linkedin:linkName==="Website"?globe:linkName==="Phone"?phone:linkName==="G-Mail"?gmail:globe
     }
     updatedLinks && updatedLinks.map((link)=>{
-      if(link.name===newLink.name){
+      if(link.name === newLink.name){
         link.name=newLink.name
         link.link=newLink.link
         setupdatedLinks([...updatedLinks])
@@ -91,7 +110,6 @@ const [updatedLinks,setupdatedLinks] = useState([])
         const newLinks=links.filter((link)=>link.name!==linkName)
         setLinks([...newLinks])
       }
-    
     })
     }
   }
@@ -99,6 +117,7 @@ const [updatedLinks,setupdatedLinks] = useState([])
   const handleEdit=(event,edit)=>{
     setLink(edit.link)
     setlinkName(edit.name)
+    setselectedLink(edit.name)
   }
 
   const handleDelete=(event,del)=>{
@@ -115,15 +134,18 @@ const [updatedLinks,setupdatedLinks] = useState([])
     <>
     <div className='app__main'>
       <div className='app__links'>
-        <p>Step 5 of 6</p>
-        <h1>Boost your credibility</h1>
-        <p>GitHub and at least 1 DSA platform is required</p>
+        <p style={{fontSize:"0.8rem"}}>Step 5 of 6</p>
+        <p style={{fontSize:"1.6rem",fontWeight:"600"}}>Boost your Credibility</p>
+        <p style={{fontSize:"0.9rem"}}>GitHub and at least 1 DSA platform is required</p>
+
         <div className='app__updatedLinks'>
         {updatedLinks && updatedLinks.map((link)=>(
           <div className='singleLink'>
           <div className='singleLinkName'>
-            {/* <svg></svg> */}
+            <div className='singleLinkNamely'>
+            <img src={link.svg} alt="globe" width={24} height={24}/>
             <p>{link.name}</p>
+            </div>
             <p>{link.link}</p>
           </div>
           <div className='singleLinkSymbol'>
@@ -133,27 +155,38 @@ const [updatedLinks,setupdatedLinks] = useState([])
         </div>
         ))}
       </div>
+
         <div className='app__all-links'>
           {links.map((link)=>(
-              <div className='link' style={{cursor:"pointer"}}onClick={()=>handleClick(link.name,link.link)}>
-              <div className='plus'>+</div>
-              <p className='link-name'>{link.name}</p>
+              <div className='link' style={{cursor:"pointer",borderColor:selected === link.name?"black":"grey"}} onClick={()=>handleClick(link.name,link.link)}>
+              <div className='plus' style={{color:selected === link.name?"black":"grey",fontWeight:"500",borderColor:selected === link.name?"black":"grey"}}>+</div>
+              <p className='link-name' style={{color:selected === link.name?"black":"grey"}}>{link.name}</p>
             </div>
           ))}
       </div>
       <div className='input__box'>
-        <p>{linkName}</p>
+        <p style={{fontSize:"1.1rem"}}>{linkName}</p>
       <input type="text" value={link} onChange={(event)=>handleChange(event,linkName)}/>
       </div>
-      <button style={{display:visibile}} onClick={handleDone}>Done</button>
+      <button style={{display:visibile}} onClick={handleDone}
+      className='app__done-button'
+      >Done</button>
     </div>
 
     <div className='app__card'>
-      <div className='app__main-card'>
-        <h1>Monis Azeem</h1>
-        <p>Full Stack developer</p>
+      <div className='app__main-card1'></div>
+      <div className='app__main-card2'></div>
+      <div className='app__main-card3'>
+        <div className='intro'>
+        <img src={user} alt="" width={80} height={80}/>
+        <div className='name_position'>
+        <p style={{fontSize:"28px",display:"inline-block",color:"#8f3b76",fontWeight:"600"}}>Monis Azeem</p>
+        <p style={{fontSize:"0.9rem",display:"inline-block"}}>Full Stack developer</p>
+        </div>
+        </div>
+        
 
-        <h1>Skills</h1>
+        <p style={{fontSize:"0.9rem",display:"inline-block",margin:0,marginTop:"1rem"}}>Skills</p>
         <div className='skills' style={{display:"flex",flexDirection:"row"}}>
         <p>TypeScript</p>
         <p>React.js</p>
@@ -163,22 +196,24 @@ const [updatedLinks,setupdatedLinks] = useState([])
         <p>Express.js</p>
         <p>MongoDB</p>
         </div>
-
         <div>
-          {updatedLinks && updatedLinks.map((link)=>(
-            <a href={link.link} target='_blank'  style={{margin:"1rem"}}>{link.name}</a>
-          ))}
-        </div>
-        
+        <p style={{fontSize:"0.9rem",display:"inline-block",margin:0,marginTop:"1rem"}}>Social Handles</p>
+        <div className='app__socials'>{
+          updatedLinks && updatedLinks.map((link)=>(
+            <div className='app__social'>
+              <a href={link.link} target='_blank'><img src={link.svg} alt={link.name} width={24} height={24}/></a>          
+            </div>
+          ))
+          }</div>
       </div>
     </div>
 
+    </div>
     </div>
     </>
   )
 }
 
-let value;
 
 
 export default App

@@ -8,6 +8,20 @@ html, body {
   height:100vh;
   display: flex;
   flex-direction: row;
+  font-family: "Poppins",'sans-serif';
+  button{
+    background-color: black;
+    color:white;
+    font-family: "Poppins",'sans-serif';
+    font-size:0.9rem;
+    padding:0.6rem;
+    padding-left:1rem;
+    padding-right:1rem;
+    border-radius: 12px;
+    margin:0.5rem;
+    cursor: pointer;
+    border:none;
+  }
 }
 
 .app__links{
@@ -15,15 +29,25 @@ html, body {
   border:1px solid black;
   padding-left: 3rem;
   padding-right:3rem;
-  padding-top: 4rem;
+  padding-top: 2rem;
   padding-bottom: 4rem;
   overflow-y: scroll;
 
   .input__box{
     border:1px solid black;
     border-radius: 8px;
-    padding: 0.4rem;
+    padding: 0.7rem;
     padding-top: 0;
+
+    input{
+      font-size: 1.1rem;
+      font-family: "Poppins",'sans-serif';
+    }
+    
+  }
+
+  .app__done-button{
+    margin-top:1rem;
   }
 
   input{
@@ -35,6 +59,8 @@ html, body {
   .app__all-links{
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
+    color:grey;
   }
 }
 .app__card{
@@ -45,21 +71,24 @@ html, body {
 .link{
   display: flex;
   flex-direction: row;
-  border:1px solid black;
+  border:2px solid black;
   border-radius:20px;
-  padding:0.5rem;
-  margin:0.5rem;
+  padding:0.4rem;
+  margin:0.4rem;
+  margin-bottom: 1.5rem;
   
 
   .plus{
-    border:1px solid black;
+    border:2px solid black;
     border-radius:50%;
     padding:0.2rem;
     margin:0;
     font-weight: bolder;
     width:17px;
     height:17px;
-    text-align: center; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .link-name{
     padding:0.2rem;
@@ -71,7 +100,94 @@ html, body {
 .skills{
   display:flex;
   flex-direction: row;
+  padding:0.5rem;
   p{
-    margin:1rem;
+    font-size: 0.8rem;
+    border:1px solid black;
+    padding:0.3rem;
+    border-radius: 10px;
+    margin:0.5rem;
+  }
+}
+
+.app__updatedLinks{
+  margin-top:3rem;
+  margin-bottom:3rem;
+  
+  .singleLink{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0.5rem;
+    align-items: center;
+    border:1px solid black;
+    padding:0.8rem;
+    border-radius: 12px;
+    border-color: #4bce97;
+    background-color: hwb(154 87% 1%);
+    .singleLinkName{
+      display:flex;
+      flex-direction: column;
+
+      .singleLinkNamely{
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        img{
+          margin-right:0.5rem;
+        }
+      }
+      
+    }
+
+    .singleLinkSymbol{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+  }
+}
+
+.app__card{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  .app__main-card3{
+    width:100%;
+    border:1px solid white;
+    background-color: hsla(0, 0%, 100%, 0.797);
+    color:black;
+    margin:6rem;
+    border-radius: 20px;
+    padding:1rem;
+
+    .intro{
+      display: flex;
+      margin:0.5rem;
+      margin-left:1rem;
+      margin-top:1rem;
+
+      .name_position{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        margin-left:1rem;
+        margin-top: 0.5rem;
+        p{
+          margin:0;
+
+        }
+      }
+    }
+  }
+}
+
+.app__socials{
+  display: flex;
+  .app__social{
+    margin:0.5rem;
   }
 }
