@@ -142,11 +142,18 @@ html, body {
     .singleLinkName{
       display:flex;
       flex-direction: column;
+      width:50%;
+      word-wrap: break-word;
+      @media screen and (max-width:1200px){
+        width:100%;
+      }
 
       .singleLinkNamely{
         display: flex;
         justify-content: flex-start;
         align-items: center;
+        flex-wrap: wrap;
+        max-width: 100%;
         img{
           margin-right:0.5rem;
         }
